@@ -191,12 +191,7 @@ class Lite_WindowAttention(nn.Module):
         maxIndex = torch.argmax(attn, dim=-1, keepdim=True)
         maxIndex = torch.tile(maxIndex, (1, 1, 1, v.shape[-1]))
         out = torch.gather(v, dim=-2, index=maxIndex)
-        # out=(out+v)/2
-        # 原始的求法
-        # out = (attn @ v).transpose(1, 2).reshape(B_, N, C)
-        # x = out.transpose(1, 2).reshape(B_, N, C)
-        # x = self.proj(x)
-        # x = self.proj_drop(x)
+
         return out
 
     def extra_repr(self) -> str:
